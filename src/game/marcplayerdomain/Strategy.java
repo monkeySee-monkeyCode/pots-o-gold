@@ -17,7 +17,7 @@ public class Strategy {
     private List<Move> playedMoves;
 
     public Strategy(Board board) {
-        this.root = TreeBuilder.buildTree(board.getBoardRaw());
+        this.root = TreeBuilder.buildTree(board);
         playedMoves = new ArrayList<Move>();
     }
 
