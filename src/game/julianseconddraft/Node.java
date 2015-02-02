@@ -14,7 +14,7 @@ public class Node {
     public int totalWins = -1;
     public boolean isRoot = false;
 
-    public Node spawnRoot(){
+    public void spawnRoot(){
         this.isRoot = true;
         this.parent = null;
         this.currentScore = 0;
@@ -25,17 +25,22 @@ public class Node {
 
 
 
-    public Node spawnChild(int[] rawBoard){
+    public Node spawnLeft(int[] rawBoard){
         Node node = new Node();
         node.parent = this;
-        if (node.isLeft){
-            node.currentScore = this.currentScore + rawBoard[this.leftPointer];
-            node.leftPointer = this.leftPointer++;
-        } else {
-            node.currentScore = this.currentScore + rawBoard[this.rightPointer];
-            node.rightPointer = this.rightPointer--;
-        }
+        node.currentScore = this.currentScore + rawBoard[this.leftPointer];
+        node.leftPointer = this.leftPointer++;
 
+        return node;
+
+    }
+
+    public Node spawnRight(int[] rawBoard){
+        Node node = new Node();
+        node.parent = this;
+        node.currentScore = this.currentScore + rawBoard[this.rightPointer];
+        node.rightPointer = this.rightPointer--;
+        return node;
     }
 
 

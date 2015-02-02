@@ -6,7 +6,7 @@ package game.julianseconddraft;
 public class Strategery {
 
     public boolean isMyMove(int potsRemaining){
-        
+
     }
 
 }
