@@ -36,7 +36,7 @@ public class MarcPlayer implements Player {
     public int moveStrategy() {
         LastPlayed lastPlayed = board.getLastPlayed();
 
-        Strategy.Move move = strategy.determineMove(lastPlayed);
+        LastPlayed move = strategy.determineMove(lastPlayed);
 
         switch (move) {
             case LEFT:

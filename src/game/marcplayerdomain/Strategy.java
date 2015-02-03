@@ -11,26 +11,24 @@ import java.util.List;
  */
 public class Strategy {
 
-    public enum Move {LEFT, RIGHT}
-
     private Node<MoveMetaData> root;
-    private List<Move> playedMoves;
+    private List<LastPlayed> playedMoves;
 
     public Strategy(Board board) {
         this.root = TreeBuilder.buildTree(board);
-        playedMoves = new ArrayList<Move>();
+        playedMoves = new ArrayList<LastPlayed>();
     }
 
-    public Move determineMove(LastPlayed lastPlayed) {
+    public LastPlayed determineMove(LastPlayed lastPlayed) {
         switch (lastPlayed) {
             case LEFT:
-                playedMoves.add(Move.LEFT);
+                playedMoves.add(LastPlayed.LEFT);
                 break;
             case RIGHT:
-                playedMoves.add(Move.RIGHT);
+                playedMoves.add(LastPlayed.RIGHT);
         }
 
-        Move move = Move.LEFT;
+        LastPlayed move = null;
 
         Node<MoveMetaData> currentMove = determineCurrentMove();
 
@@ -38,9 +36,9 @@ public class Strategy {
         MoveMetaData rightMoveMetaData = (MoveMetaData)currentMove.getRight().getMetaData();
 
         if (leftMoveMetaData.getWinPercent() > rightMoveMetaData.getWinPercent()) {
-            move = Move.LEFT;
+            move = LastPlayed.LEFT;
         } else if (leftMoveMetaData.getWinPercent() < rightMoveMetaData.getWinPercent()) {
-            move = Move.RIGHT;
+            move = LastPlayed.RIGHT;
         }
         /*
          * TODO implement margin + percentage logic here
@@ -54,7 +52,7 @@ public class Strategy {
     private Node<MoveMetaData> determineCurrentMove() {
         Node<MoveMetaData> currentMove = root;
 
-        for (Move playedMove : playedMoves) {
+        for (LastPlayed playedMove : playedMoves) {
 
             switch (playedMove) {
                 case LEFT:
