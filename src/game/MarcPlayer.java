@@ -23,7 +23,7 @@ public class MarcPlayer implements Player {
      * @return value of item selected
      */
     public int move() {
-        return 0;
+        return board.playRight();
     }
 
     public Brotherman getPlayer() {

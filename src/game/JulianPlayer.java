@@ -26,7 +26,7 @@ public class JulianPlayer implements Player {
         /*
          * Revise
          */
-        return 0;
+        return board.playLeft();
     }
 
     public Brotherman getPlayer() {
