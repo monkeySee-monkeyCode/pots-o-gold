@@ -2,34 +2,32 @@ package game.marcplayerdomain;
 
 import game.Board;
 
-import java.util.List;
-
 /**
  * @author marc.vis
  */
 public class TreeBuilder {
 
-    public static Node buildTree(Board board) {
+    public static Node<? extends MoveMetaData> buildTree(Board board) {
 
         int[] rawBoard = board.getBoardRaw();
 
-        Node root = new RootNode();
+        Node<MoveMetaData> root = new RootNode<MoveMetaData>();
         traceBoard(root, rawBoard, 0, rawBoard.length - 1);
-        calculateValues(root, 0, 0);
+        calculateScores(root, 0, 0);
         calculateWinPercents(root);
 
         return root;
     }
 
-    public static void traceBoard(Node node, int[] board, int leftMost, int rightMost) {
+    public static void traceBoard(Node<? extends MoveMetaData> node, int[] board, int leftMost, int rightMost) {
         if (leftMost <= rightMost) {
-            Node leftChild = new Node(board[leftMost]);
+            Node<MoveMetaData> leftChild = new Node<MoveMetaData>(new MoveMetaData(board[leftMost]));
             node.setLeft(leftChild);
 
             traceBoard(leftChild, board, leftMost + 1, rightMost);
 
             if (rightMost > leftMost) {
-                Node rightChild = new Node(board[rightMost]);
+                Node<MoveMetaData> rightChild = new Node<MoveMetaData>(new MoveMetaData(board[rightMost]));
                 node.setRight(rightChild);
 
                 traceBoard(rightChild, board, leftMost, rightMost - 1);
@@ -37,24 +35,26 @@ public class TreeBuilder {
         }
     }
 
-    private static void calculateValues(Node node, int currentValue,
-                                      int opponentCurrentValue) {
+    @SuppressWarnings("unchecked")
+    private static void calculateScores(Node<MoveMetaData> node, int currentScore,
+                                        int opponentCurrentScore) {
         if (node.isLeaf()) {
-            node.setCurrentValue(currentValue);
-            node.setOpponentValue(opponentCurrentValue);
+            node.getMetaData().setCurrentScore(currentScore);
+            node.getMetaData().setOpponentScore(opponentCurrentScore);
         } else {
             if (node.hasLeft()) {
-                calculateValues(node.getLeft(), opponentCurrentValue, currentValue + node.getValue());
+                calculateScores(node.getLeft(), opponentCurrentScore, currentScore + node.getMetaData().getValue());
             }
             if (node.hasRight()) {
-                calculateValues(node.getRight(), opponentCurrentValue, currentValue + node.getValue());
+                calculateScores(node.getRight(), opponentCurrentScore, currentScore + node.getMetaData().getValue());
             }
         }
     }
 
-    private static void calculateWinPercents(Node node) {
-        Node leftChild = null;
-        Node rightChild = null;
+    @SuppressWarnings("unchecked")
+    private static void calculateWinPercents(Node<MoveMetaData> node) {
+        Node<MoveMetaData> leftChild = null;
+        Node<MoveMetaData> rightChild = null;
 
         int leftPercentToWin = 0;
         int leftOppenentPercentToWin = 0;
@@ -63,36 +63,37 @@ public class TreeBuilder {
 
         if (node.isLeaf()) {
             if (node.getParent() != null) {
-                node.setWinPercent(node.getValue() >= node.getParent().getValue() ? 100 : 0);
-                node.setOpponentWinPercent(100 - node.getWinPercent());
+                node.getMetaData().setWinPercent(node.getMetaData().getValue()
+                        >= ((MoveMetaData)(node.getParent().getMetaData())).getValue() ? 100 : 0);
+                node.getMetaData().setOpponentWinPercent(100 - node.getMetaData().getWinPercent());
             } else {
-                node.setWinPercent(100);
-                node.setOpponentWinPercent(0);
+                node.getMetaData().setWinPercent(100);
+                node.getMetaData().setOpponentWinPercent(0);
             }
             return;
         }
         if (node.hasLeft()) {
             leftChild = node.getLeft();
             calculateWinPercents(leftChild);
-            leftPercentToWin = leftChild.getOpponentWinPercent();
-            leftOppenentPercentToWin = leftChild.getWinPercent();
+            leftPercentToWin = leftChild.getMetaData().getOpponentWinPercent();
+            leftOppenentPercentToWin = leftChild.getMetaData().getWinPercent();
         }
-        if (node.hasLeft()) {
+        if (node.hasRight()) {
             rightChild = node.getRight();
             calculateWinPercents(rightChild);
-            rightPercentToWin = rightChild.getOpponentWinPercent();
-            rightOpponentPercentToWin = rightChild.getWinPercent();
+            rightPercentToWin = rightChild.getMetaData().getOpponentWinPercent();
+            rightOpponentPercentToWin = rightChild.getMetaData().getWinPercent();
         }
 
         if (leftChild != null && rightChild != null) {
-            node.setWinPercent( (leftPercentToWin + rightPercentToWin) / 2 );
-            node.setOpponentWinPercent( (leftOppenentPercentToWin + rightOpponentPercentToWin) / 2 );
+            node.getMetaData().setWinPercent( (leftPercentToWin + rightPercentToWin) / 2 );
+            node.getMetaData().setOpponentWinPercent( (leftOppenentPercentToWin + rightOpponentPercentToWin) / 2 );
         } else if (leftChild != null) {
-            node.setWinPercent(leftPercentToWin);
-            node.setOpponentWinPercent(leftOppenentPercentToWin);
+            node.getMetaData().setWinPercent(leftPercentToWin);
+            node.getMetaData().setOpponentWinPercent(leftOppenentPercentToWin);
         } else {
-            node.setWinPercent(rightPercentToWin);
-            node.setOpponentWinPercent(rightOpponentPercentToWin);
+            node.getMetaData().setWinPercent(rightPercentToWin);
+            node.getMetaData().setOpponentWinPercent(rightOpponentPercentToWin);
         }
     }
 

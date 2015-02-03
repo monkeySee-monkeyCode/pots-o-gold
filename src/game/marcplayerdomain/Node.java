@@ -3,21 +3,15 @@ package game.marcplayerdomain;
 /**
  * @author marc.vis
  */
-public class Node {
+public class Node<T> {
 
-    private int value;
+    private T metaData;
     private Node left;
     private Node right;
     private Node parent;
 
-    private int currentValue;
-    private int opponentValue;
-
-    private int winPercent;
-    private int opponentWinPercent;
-
-    public Node(int value) {
-        this.value = value;
+    public Node(T value) {
+        this.metaData = value;
         this.left = null;
         this.right = null;
     }
@@ -38,12 +32,12 @@ public class Node {
         return right != null;
     }
 
-    public int getValue() {
-        return value;
+    public T getMetaData() {
+        return metaData;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setMetaData(T metaData) {
+        this.metaData = metaData;
     }
 
     public Node getLeft() {
@@ -70,37 +64,5 @@ public class Node {
 
     public void setParent(Node parent) {
         this.parent = parent;
-    }
-
-    public int getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(int currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public int getOpponentValue() {
-        return opponentValue;
-    }
-
-    public void setOpponentValue(int opponentValue) {
-        this.opponentValue = opponentValue;
-    }
-
-    public int getWinPercent() {
-        return winPercent;
-    }
-
-    public void setWinPercent(int winPercent) {
-        this.winPercent = winPercent;
-    }
-
-    public int getOpponentWinPercent() {
-        return opponentWinPercent;
-    }
-
-    public void setOpponentWinPercent(int opponentWinPercent) {
-        this.opponentWinPercent = opponentWinPercent;
     }
 }

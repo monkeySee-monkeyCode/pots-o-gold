@@ -3,10 +3,10 @@ package game.marcplayerdomain;
 /**
  * @author marc.vis
  */
-public class RootNode extends Node {
+public class RootNode<T> extends Node<T> {
 
     public RootNode() {
-        super(0);
+        super(null);
     }
 
     @Override
