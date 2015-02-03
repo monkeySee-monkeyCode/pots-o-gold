@@ -7,11 +7,13 @@ import game.Board;
  */
 public class TreeBuilder {
 
-    public static Node<? extends MoveMetaData> buildTree(Board board) {
+    public static Node<MoveMetaData> buildTree(Board board) {
 
         int[] rawBoard = board.getBoardRaw();
 
         Node<MoveMetaData> root = new RootNode<MoveMetaData>();
+        root.setMetaData(new MoveMetaData());
+
         traceBoard(root, rawBoard, 0, rawBoard.length - 1);
         calculateScores(root, 0, 0);
         calculateWinPercents(root);
@@ -19,7 +21,7 @@ public class TreeBuilder {
         return root;
     }
 
-    public static void traceBoard(Node<? extends MoveMetaData> node, int[] board, int leftMost, int rightMost) {
+    public static void traceBoard(Node<MoveMetaData> node, int[] board, int leftMost, int rightMost) {
         if (leftMost <= rightMost) {
             Node<MoveMetaData> leftChild = new Node<MoveMetaData>(new MoveMetaData(board[leftMost]));
             node.setLeft(leftChild);
@@ -64,7 +66,7 @@ public class TreeBuilder {
         if (node.isLeaf()) {
             if (node.getParent() != null) {
                 node.getMetaData().setWinPercent(node.getMetaData().getValue()
-                        >= ((MoveMetaData)(node.getParent().getMetaData())).getValue() ? 100 : 0);
+                        >= ((MoveMetaData) (node.getParent().getMetaData())).getValue() ? 100 : 0);
                 node.getMetaData().setOpponentWinPercent(100 - node.getMetaData().getWinPercent());
             } else {
                 node.getMetaData().setWinPercent(100);
@@ -86,8 +88,8 @@ public class TreeBuilder {
         }
 
         if (leftChild != null && rightChild != null) {
-            node.getMetaData().setWinPercent( (leftPercentToWin + rightPercentToWin) / 2 );
-            node.getMetaData().setOpponentWinPercent( (leftOppenentPercentToWin + rightOpponentPercentToWin) / 2 );
+            node.getMetaData().setWinPercent((leftPercentToWin + rightPercentToWin) / 2);
+            node.getMetaData().setOpponentWinPercent((leftOppenentPercentToWin + rightOpponentPercentToWin) / 2);
         } else if (leftChild != null) {
             node.getMetaData().setWinPercent(leftPercentToWin);
             node.getMetaData().setOpponentWinPercent(leftOppenentPercentToWin);

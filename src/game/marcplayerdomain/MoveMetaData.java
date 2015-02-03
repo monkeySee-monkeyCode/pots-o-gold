@@ -13,7 +13,9 @@ public class MoveMetaData {
     private int winPercent;
     private int opponentWinPercent;
 
-    public MoveMetaData() {}
+    public MoveMetaData() {
+        this.value = 0;
+    }
 
     public MoveMetaData(int value) {
         this.value = value;
