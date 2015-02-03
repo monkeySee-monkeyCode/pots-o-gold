@@ -14,36 +14,32 @@ public class Node {
     public int totalWins = -1;
     public boolean isRoot = false;
 
-    public Node spawnRoot(){
+    public void convertToRoot(){
         this.isRoot = true;
         this.parent = null;
         this.currentScore = 0;
-
     }
 
 
 
 
 
-    public Node spawnChild(int[] rawBoard){
+    public void spawnChild(int[] rawBoard){ //Changed this to void for you, since you don't depend on the return nor did you return anything (compilation error, uh oh!)
         Node node = new Node();
         node.parent = this;
-        if (node.isLeft){
+        if (node.isLeft()){  //Fixed this for you
             node.currentScore = this.currentScore + rawBoard[this.leftPointer];
             node.leftPointer = this.leftPointer++;
         } else {
             node.currentScore = this.currentScore + rawBoard[this.rightPointer];
             node.rightPointer = this.rightPointer--;
         }
-
     }
 
 
 
     public boolean isLeft() {
-        if (this.parent.left == this) {
-            return true;
-        } else return false;
+        return this.parent.left == this;
     }
 
     public boolean hasLeft() {

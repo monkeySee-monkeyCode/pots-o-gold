@@ -1,5 +1,8 @@
 package game.julianseconddraft;
 import game.Board;
+
+import static game.julianseconddraft.Strategery.isMyMove;
+
 /**
  * Created by Joe on 2/1/2015.
  */
@@ -11,7 +14,7 @@ public class TreeBuilder {
         Node currentNode;
 
         Node root = new Node();
-        root.spawnRoot();
+        root.convertToRoot();
         currentNode = root;
 
 

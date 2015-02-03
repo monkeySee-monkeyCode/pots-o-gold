@@ -5,8 +5,8 @@ package game.julianseconddraft;
  */
 public class Strategery {
 
-    public boolean isMyMove(int potsRemaining){
-        
+    public static boolean isMyMove(int potsRemaining){
+        return true;
     }
 
 }

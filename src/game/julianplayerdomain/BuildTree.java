@@ -14,7 +14,7 @@ public class BuildTree {
         int[] rawBoard = board.getBoardRaw();
         int potsRemaining = rawBoard.length;
         Node currentNode;
-        boolean isMyMove;
+        boolean isMyMove = false;       //Need this here for the comparison on line 48
         Node root = new RootNode();
         currentNode = root;
 
