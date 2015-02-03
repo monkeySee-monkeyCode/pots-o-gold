@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Strategy {
 
-    private Node<MoveMetaData> root;
+    private Node root;
     private List<LastPlayed> playedMoves;
 
     public Strategy(Board board) {
@@ -28,29 +28,29 @@ public class Strategy {
                 playedMoves.add(LastPlayed.RIGHT);
         }
 
-        LastPlayed move = null;
+        LastPlayed move = LastPlayed.LEFT;
 
-        Node<MoveMetaData> currentMove = determineCurrentMove();
+        Node currentMove = determineCurrentMove();
 
-        MoveMetaData leftMoveMetaData = (MoveMetaData)currentMove.getLeft().getMetaData();
-        MoveMetaData rightMoveMetaData = (MoveMetaData)currentMove.getRight().getMetaData();
+        if (!currentMove.isLeaf()) {
+            int leftPercent = (currentMove.getLeftPositiveOutcomes() * 100)
+                    / (currentMove.getLeftPositiveOutcomes() + currentMove.getLeftNegativeOutcomes());
+            int rightPercent = (currentMove.getRightPositiveOutcomes() * 100)
+                    / (currentMove.getRightPositiveOutcomes() + currentMove.getRightNegativeOutcomes());
 
-        if (leftMoveMetaData.getWinPercent() > rightMoveMetaData.getWinPercent()) {
-            move = LastPlayed.LEFT;
-        } else if (leftMoveMetaData.getWinPercent() < rightMoveMetaData.getWinPercent()) {
-            move = LastPlayed.RIGHT;
-        }
+            move = leftPercent > rightPercent ? LastPlayed.LEFT : LastPlayed.RIGHT;
+
         /*
-         * TODO implement margin + percentage logic here
+         * TODO implement margin logic here
          */
+        }
 
         playedMoves.add(move);
         return move;
     }
 
-    @SuppressWarnings("unchecked")
-    private Node<MoveMetaData> determineCurrentMove() {
-        Node<MoveMetaData> currentMove = root;
+    private Node determineCurrentMove() {
+        Node currentMove = root;
 
         for (LastPlayed playedMove : playedMoves) {
 

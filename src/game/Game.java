@@ -38,6 +38,7 @@ public class Game {
 
         playSet(boards, Brotherman.MARC, Brotherman.JULIAN);
         clearResults();
+        clearBoards(boards);
         playSet(boards, Brotherman.JULIAN, Brotherman.MARC);
     }
     
@@ -81,6 +82,12 @@ public class Game {
 
         marcTotalBeatingPoints = 0;
         julianTotalBeatingPoints = 0;
+    }
+
+    private static void clearBoards(Board[] boards) {
+        for (Board board : boards) {
+            board.resetBoard();
+        }
     }
 
     private static void tabulateGame(int winnerScore, int loserScore, Brotherman winner) {

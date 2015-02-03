@@ -19,6 +19,13 @@ public class Board {
         lastPlayed = LastPlayed.NEVER;
     }
 
+    public void resetBoard() {
+        itemsRemaining = board.length;
+        leftMost = 0;
+        rightMost = itemsRemaining - 1;
+        lastPlayed = LastPlayed.NEVER;
+    }
+
     public boolean isItemsLeft() {
         return itemsRemaining > 0;
     }
@@ -43,13 +50,6 @@ public class Board {
 
     public int[] getBoardRaw() {
         return this.board;
-    }
-
-    public int getValue(int index) {
-        if (index > 0 && index < board.length) {
-            return board[index];
-        }
-        return 0;
     }
 
     public LastPlayed getLastPlayed() {
