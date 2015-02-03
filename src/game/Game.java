@@ -106,10 +106,14 @@ public class Game {
 
     private static void finalizeResults(Board[] boards) {
         marcAverageScore = marcTotalScore / ((boards.length - tieGames) / 2);
-        marcAverageBeatingPoints = marcTotalBeatingPoints / marcWins;
+        if (marcWins > 0) {
+            marcAverageBeatingPoints = marcTotalBeatingPoints / marcWins;
+        }
 
         julianAverageScore = julianTotalScore / ((boards.length - tieGames) / 2);
-        julianAverageBeatingPoints = julianTotalBeatingPoints / julianWins;
+        if (julianWins > 0) {
+            julianAverageBeatingPoints = julianTotalBeatingPoints / julianWins;
+        }
     }
 
     public static void printResults() {
@@ -133,7 +137,7 @@ public class Game {
     }
 
     private static Board generateNewBoard() {
-        int boardSize = ((rand.nextInt(25) + 4) / 2) * 2; //minimum 4 items and ensure even amount
+        int boardSize = ((rand.nextInt(10) + 4) / 2) * 2; //minimum 4 items and ensure even amount
         int[] board = new int[boardSize];
         for (int i = 0; i < boardSize; i++) {
             board[i] = rand.nextInt(1000);

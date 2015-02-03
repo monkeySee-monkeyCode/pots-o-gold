@@ -56,4 +56,20 @@ public class Board {
         return lastPlayed;
     }
 
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Board: [");
+
+        for (int i = 0; i < board.length; i++) {
+            stringBuilder.append(board[i]);
+            if (i < board.length - 1) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]\n");
+        return stringBuilder.toString();
+    }
+
 }

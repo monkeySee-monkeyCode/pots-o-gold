@@ -26,7 +26,7 @@ public class MarcPlayer implements Player {
      */
     public int move() {
         return moveStrategy();
-        // return moveMock();
+        //return moveMock();
     }
 
     private int moveMock() {

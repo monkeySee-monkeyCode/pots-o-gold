@@ -9,6 +9,8 @@ public class TreeBuilder {
 
     public static Node buildTree(Board board) {
 
+        System.out.println("Building tree for board: " + board);
+
         int[] rawBoard = board.getBoardRaw();
 
         Node root = new RootNode();
