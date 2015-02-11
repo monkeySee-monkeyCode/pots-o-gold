@@ -54,6 +54,7 @@ public class TreeBuilder {
             node.setSecondPlayerScore(sps);
 
             calculateScores(node.getLeft(), fps, sps, !isFirstPlayer);
+            calculateScores(node.getRight(), fps, sps, !isFirstPlayer);
         }
     }
 
