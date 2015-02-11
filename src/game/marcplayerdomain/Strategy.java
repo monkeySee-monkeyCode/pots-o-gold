@@ -28,25 +28,34 @@ public class Strategy {
                 playedMoves.add(LastPlayed.RIGHT);
         }
 
+        boolean isFirstPlayer = isFirstPlayer();
         LastPlayed move = LastPlayed.LEFT;
 
         Node currentMove = determineCurrentMove();
+        Node leftMove = currentMove.getLeft() != null ? currentMove.getLeft() : new Node();
+        Node rightMove = currentMove.getRight() != null ? currentMove.getRight() : new Node();
 
-        if (!currentMove.isLeaf()) {
-            int leftPercent = (currentMove.getLeftPositiveOutcomes() * 100)
-                    / (currentMove.getLeftPositiveOutcomes() + currentMove.getLeftNegativeOutcomes());
-            int rightPercent = (currentMove.getRightPositiveOutcomes() * 100)
-                    / (currentMove.getRightPositiveOutcomes() + currentMove.getRightNegativeOutcomes());
+        int leftWinMargin = 0;
+        int rightWinMargin = 0;
 
-            move = leftPercent > rightPercent ? LastPlayed.LEFT : LastPlayed.RIGHT;
+        if (isFirstPlayer) {
+            leftWinMargin = leftMove.getFirstPlayerPositiveOutcomes() - leftMove.getSecondPlayerPositiveOutcomes();
+            rightWinMargin = rightMove.getFirstPlayerPositiveOutcomes() - rightMove.getSecondPlayerPositiveOutcomes();
+        } else {
+            leftWinMargin = leftMove.getSecondPlayerPositiveOutcomes() - leftMove.getFirstPlayerPositiveOutcomes();
+            rightWinMargin = rightMove.getSecondPlayerPositiveOutcomes() - rightMove.getFirstPlayerPositiveOutcomes();
+        }
 
-        /*
-         * TODO implement margin logic here
-         */
+        if (rightWinMargin > leftWinMargin) {
+            move = LastPlayed.RIGHT;
         }
 
         playedMoves.add(move);
         return move;
+    }
+
+    private boolean isFirstPlayer() {
+        return playedMoves.isEmpty() || (playedMoves.size() % 2 == 0);
     }
 
     private Node determineCurrentMove() {

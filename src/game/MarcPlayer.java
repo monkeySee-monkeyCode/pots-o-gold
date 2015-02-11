@@ -35,20 +35,17 @@ public class MarcPlayer implements Player {
 
     public int moveStrategy() {
         LastPlayed lastPlayed = board.getLastPlayed();
-
         LastPlayed move = strategy.determineMove(lastPlayed);
 
-        if (move != null) {
-            switch (move) {
-                case LEFT:
-                    return board.playLeft();
-                case RIGHT:
-                    return board.playRight();
-                default:
-                    return 0;
-            }
+        switch (move) {
+            case LEFT:
+                return board.playLeft();
+            case RIGHT:
+                return board.playRight();
+            default:
+                return 0;
         }
-        return 0;
+
     }
 
     public Brotherman getPlayer() {

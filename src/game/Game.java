@@ -102,6 +102,23 @@ public class Game {
             julianWins++;
             julianAverageBeatingPoints += (winnerScore - loserScore);
         }
+
+        printGameScore(winnerScore, loserScore, winner);
+    }
+
+    private static void printGameScore(int winnerScore, int loserScore, Brotherman winner) {
+        String winnerName = "Marc";
+        int julianPoints = loserScore;
+        int marcPoints = winnerScore;
+        if (winner == Brotherman.JULIAN) {
+            winnerName = "Julian";
+            julianPoints = winnerScore;
+            marcPoints = loserScore;
+        }
+        System.out.println("\t*************************");
+        System.out.println("\tGame winner: " + winnerName + "\n\tMarc points:\t"
+                + marcPoints + "\n\tJulian points:\t" + julianPoints);
+        System.out.println("\t*************************");
     }
 
     private static void finalizeResults(Board[] boards) {
@@ -119,11 +136,11 @@ public class Game {
     public static void printResults() {
         System.out.println("==================================================================================");
         System.out.println("Winner: " + (marcWins > julianWins ? "Marc" : "Julian"));
-        System.out.println("\tBREAKDOWN");
-        System.out.println("\t\t\tMarc\tJulian");
-        System.out.println("Wins:\t\t" + marcWins + "\t" + julianWins);
+        System.out.println("BREAKDOWN");
+        System.out.println("\t\t\t\tMarc\tJulian");
+        System.out.println("Wins:\t\t\t" + marcWins + "\t\t" + julianWins);
         System.out.println("Avg Score:\t\t" + marcAverageScore + "\t" + julianAverageScore);
-        System.out.println("Avg Delta:\t\t" + marcAverageBeatingPoints + "\t" + julianAverageBeatingPoints);
+        System.out.println("Avg Delta:\t\t" + marcAverageBeatingPoints + "\t\t" + julianAverageBeatingPoints);
         System.out.println("==================================================================================");
     }
 

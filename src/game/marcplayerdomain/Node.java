@@ -8,24 +8,20 @@ import java.util.List;
  */
 public class Node {
 
-    private int value;
+    private int value = 0;
     private Node left;
     private Node right;
     private Node parent;
 
-    private int currentScore = 0;
-    private int opponentScore = 0;
+    private int firstPlayerScore = 0;
+    private int secondPlayerScore = 0;
 
-    private int winPercent = 0;
-    private int opponentWinPercent = 0;
+    private int firstPlayerPositiveOutcomes = 0;
+    private int firstPlayerNegativeOutcomes = 0;
+    private int secondPlayerPositiveOutcomes = 0;
+    private int secondPlayerNegativeOutcomes = 0;
 
-    private int totalPositiveOutcomes = 0;
-    private int totalNegativeOutcomes = 0;
-
-    private int leftPositiveOutcomes = 0;
-    private int leftNegativeOutcomes = 0;
-    private int rightPositiveOutcomes = 0;
-    private int rightNegativeOutcomes = 0;
+    public Node() {}
 
     public Node(int value) {
         this.value = value;
@@ -83,83 +79,51 @@ public class Node {
         this.parent = parent;
     }
 
-    public int getCurrentScore() {
-        return currentScore;
+    public int getFirstPlayerScore() {
+        return firstPlayerScore;
     }
 
-    public void setCurrentScore(int currentScore) {
-        this.currentScore = currentScore;
+    public void setFirstPlayerScore(int firstPlayerScore) {
+        this.firstPlayerScore = firstPlayerScore;
     }
 
-    public int getOpponentScore() {
-        return opponentScore;
+    public int getSecondPlayerScore() {
+        return secondPlayerScore;
     }
 
-    public void setOpponentScore(int opponentScore) {
-        this.opponentScore = opponentScore;
+    public void setSecondPlayerScore(int secondPlayerScore) {
+        this.secondPlayerScore = secondPlayerScore;
     }
 
-    public int getWinPercent() {
-        return winPercent;
+    public int getFirstPlayerPositiveOutcomes() {
+        return firstPlayerPositiveOutcomes;
     }
 
-    public void setWinPercent(int winPercent) {
-        this.winPercent = winPercent;
+    public void setFirstPlayerPositiveOutcomes(int firstPlayerPositiveOutcomes) {
+        this.firstPlayerPositiveOutcomes = firstPlayerPositiveOutcomes;
     }
 
-    public int getOpponentWinPercent() {
-        return opponentWinPercent;
+    public int getFirstPlayerNegativeOutcomes() {
+        return firstPlayerNegativeOutcomes;
     }
 
-    public void setOpponentWinPercent(int opponentWinPercent) {
-        this.opponentWinPercent = opponentWinPercent;
+    public void setFirstPlayerNegativeOutcomes(int firstPlayerNegativeOutcomes) {
+        this.firstPlayerNegativeOutcomes = firstPlayerNegativeOutcomes;
     }
 
-    public int getLeftPositiveOutcomes() {
-        return leftPositiveOutcomes;
+    public int getSecondPlayerPositiveOutcomes() {
+        return secondPlayerPositiveOutcomes;
     }
 
-    public void setLeftPositiveOutcomes(int leftPositiveOutcomes) {
-        this.leftPositiveOutcomes = leftPositiveOutcomes;
+    public void setSecondPlayerPositiveOutcomes(int secondPlayerPositiveOutcomes) {
+        this.secondPlayerPositiveOutcomes = secondPlayerPositiveOutcomes;
     }
 
-    public int getRightPositiveOutcomes() {
-        return rightPositiveOutcomes;
+    public int getSecondPlayerNegativeOutcomes() {
+        return secondPlayerNegativeOutcomes;
     }
 
-    public void setRightPositiveOutcomes(int rightPositiveOutcomes) {
-        this.rightPositiveOutcomes = rightPositiveOutcomes;
-    }
-
-    public int getLeftNegativeOutcomes() {
-        return leftNegativeOutcomes;
-    }
-
-    public void setLeftNegativeOutcomes(int leftNegativeOutcomes) {
-        this.leftNegativeOutcomes = leftNegativeOutcomes;
-    }
-
-    public int getRightNegativeOutcomes() {
-        return rightNegativeOutcomes;
-    }
-
-    public void setRightNegativeOutcomes(int rightNegativeOutcomes) {
-        this.rightNegativeOutcomes = rightNegativeOutcomes;
-    }
-
-    public int getTotalPositiveOutcomes() {
-        return totalPositiveOutcomes;
-    }
-
-    public void setTotalPositiveOutcomes(int totalPositiveOutcomes) {
-        this.totalPositiveOutcomes = totalPositiveOutcomes;
-    }
-
-    public int getTotalNegativeOutcomes() {
-        return totalNegativeOutcomes;
-    }
-
-    public void setTotalNegativeOutcomes(int totalNegativeOutcomes) {
-        this.totalNegativeOutcomes = totalNegativeOutcomes;
+    public void setSecondPlayerNegativeOutcomes(int secondPlayerNegativeOutcomes) {
+        this.secondPlayerNegativeOutcomes = secondPlayerNegativeOutcomes;
     }
 }
