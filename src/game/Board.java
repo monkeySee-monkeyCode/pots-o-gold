@@ -19,6 +19,13 @@ public class Board {
         lastPlayed = LastPlayed.NEVER;
     }
 
+    public void resetBoard() {
+        itemsRemaining = board.length;
+        leftMost = 0;
+        rightMost = itemsRemaining - 1;
+        lastPlayed = LastPlayed.NEVER;
+    }
+
     public boolean isItemsLeft() {
         return itemsRemaining > 0;
     }
@@ -45,15 +52,24 @@ public class Board {
         return this.board;
     }
 
-    public int getValue(int index) {
-        if (index > 0 && index < board.length) {
-            return board[index];
-        }
-        return 0;
-    }
-
     public LastPlayed getLastPlayed() {
         return lastPlayed;
+    }
+
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Board: [");
+
+        for (int i = 0; i < board.length; i++) {
+            stringBuilder.append(board[i]);
+            if (i < board.length - 1) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]\n");
+        return stringBuilder.toString();
     }
 
 }

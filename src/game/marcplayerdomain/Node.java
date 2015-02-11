@@ -1,20 +1,26 @@
 package game.marcplayerdomain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author marc.vis
  */
 public class Node {
 
-    private int value;
+    private int value = 0;
     private Node left;
     private Node right;
-    private Node parent;
 
-    private int currentValue;
-    private int opponentValue;
+    private int firstPlayerScore = 0;
+    private int secondPlayerScore = 0;
 
-    private int winPercent;
-    private int opponentWinPercent;
+    private int firstPlayerPositiveOutcomes = 0;
+    private int firstPlayerNegativeOutcomes = 0;
+    private int secondPlayerPositiveOutcomes = 0;
+    private int secondPlayerNegativeOutcomes = 0;
+
+    public Node() {}
 
     public Node(int value) {
         this.value = value;
@@ -52,7 +58,6 @@ public class Node {
 
     public void setLeft(Node left) {
         this.left = left;
-        left.setParent(this);
     }
 
     public Node getRight() {
@@ -61,46 +66,53 @@ public class Node {
 
     public void setRight(Node right) {
         this.right = right;
-        right.parent = this;
     }
 
-    public Node getParent() {
-        return parent;
+    public int getFirstPlayerScore() {
+        return firstPlayerScore;
     }
 
-    public void setParent(Node parent) {
-        this.parent = parent;
+    public void setFirstPlayerScore(int firstPlayerScore) {
+        this.firstPlayerScore = firstPlayerScore;
     }
 
-    public int getCurrentValue() {
-        return currentValue;
+    public int getSecondPlayerScore() {
+        return secondPlayerScore;
     }
 
-    public void setCurrentValue(int currentValue) {
-        this.currentValue = currentValue;
+    public void setSecondPlayerScore(int secondPlayerScore) {
+        this.secondPlayerScore = secondPlayerScore;
     }
 
-    public int getOpponentValue() {
-        return opponentValue;
+    public int getFirstPlayerPositiveOutcomes() {
+        return firstPlayerPositiveOutcomes;
     }
 
-    public void setOpponentValue(int opponentValue) {
-        this.opponentValue = opponentValue;
+    public void setFirstPlayerPositiveOutcomes(int firstPlayerPositiveOutcomes) {
+        this.firstPlayerPositiveOutcomes = firstPlayerPositiveOutcomes;
     }
 
-    public int getWinPercent() {
-        return winPercent;
+    public int getFirstPlayerNegativeOutcomes() {
+        return firstPlayerNegativeOutcomes;
     }
 
-    public void setWinPercent(int winPercent) {
-        this.winPercent = winPercent;
+    public void setFirstPlayerNegativeOutcomes(int firstPlayerNegativeOutcomes) {
+        this.firstPlayerNegativeOutcomes = firstPlayerNegativeOutcomes;
     }
 
-    public int getOpponentWinPercent() {
-        return opponentWinPercent;
+    public int getSecondPlayerPositiveOutcomes() {
+        return secondPlayerPositiveOutcomes;
     }
 
-    public void setOpponentWinPercent(int opponentWinPercent) {
-        this.opponentWinPercent = opponentWinPercent;
+    public void setSecondPlayerPositiveOutcomes(int secondPlayerPositiveOutcomes) {
+        this.secondPlayerPositiveOutcomes = secondPlayerPositiveOutcomes;
+    }
+
+    public int getSecondPlayerNegativeOutcomes() {
+        return secondPlayerNegativeOutcomes;
+    }
+
+    public void setSecondPlayerNegativeOutcomes(int secondPlayerNegativeOutcomes) {
+        this.secondPlayerNegativeOutcomes = secondPlayerNegativeOutcomes;
     }
 }

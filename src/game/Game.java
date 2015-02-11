@@ -38,6 +38,7 @@ public class Game {
 
         playSet(boards, Brotherman.MARC, Brotherman.JULIAN);
         clearResults();
+        clearBoards(boards);
         playSet(boards, Brotherman.JULIAN, Brotherman.MARC);
     }
     
@@ -83,6 +84,12 @@ public class Game {
         julianTotalBeatingPoints = 0;
     }
 
+    private static void clearBoards(Board[] boards) {
+        for (Board board : boards) {
+            board.resetBoard();
+        }
+    }
+
     private static void tabulateGame(int winnerScore, int loserScore, Brotherman winner) {
         if (winner == Brotherman.MARC) {
             marcTotalScore += winnerScore;
@@ -95,24 +102,45 @@ public class Game {
             julianWins++;
             julianAverageBeatingPoints += (winnerScore - loserScore);
         }
+
+        printGameScore(winnerScore, loserScore, winner);
+    }
+
+    private static void printGameScore(int winnerScore, int loserScore, Brotherman winner) {
+        String winnerName = "Marc";
+        int julianPoints = loserScore;
+        int marcPoints = winnerScore;
+        if (winner == Brotherman.JULIAN) {
+            winnerName = "Julian";
+            julianPoints = winnerScore;
+            marcPoints = loserScore;
+        }
+        System.out.println("\t*************************");
+        System.out.println("\tGame winner: " + winnerName + "\n\tMarc points:\t"
+                + marcPoints + "\n\tJulian points:\t" + julianPoints);
+        System.out.println("\t*************************");
     }
 
     private static void finalizeResults(Board[] boards) {
         marcAverageScore = marcTotalScore / ((boards.length - tieGames) / 2);
-        marcAverageBeatingPoints = marcTotalBeatingPoints / marcWins;
+        if (marcWins > 0) {
+            marcAverageBeatingPoints = marcTotalBeatingPoints / marcWins;
+        }
 
         julianAverageScore = julianTotalScore / ((boards.length - tieGames) / 2);
-        julianAverageBeatingPoints = julianTotalBeatingPoints / julianWins;
+        if (julianWins > 0) {
+            julianAverageBeatingPoints = julianTotalBeatingPoints / julianWins;
+        }
     }
 
     public static void printResults() {
         System.out.println("==================================================================================");
         System.out.println("Winner: " + (marcWins > julianWins ? "Marc" : "Julian"));
-        System.out.println("\tBREAKDOWN");
-        System.out.println("\t\t\tMarc\tJulian");
-        System.out.println("Wins:\t\t" + marcWins + "\t" + julianWins);
+        System.out.println("BREAKDOWN");
+        System.out.println("\t\t\t\tMarc\tJulian");
+        System.out.println("Wins:\t\t\t" + marcWins + "\t\t" + julianWins);
         System.out.println("Avg Score:\t\t" + marcAverageScore + "\t" + julianAverageScore);
-        System.out.println("Avg Delta:\t\t" + marcAverageBeatingPoints + "\t" + julianAverageBeatingPoints);
+        System.out.println("Avg Delta:\t\t" + marcAverageBeatingPoints + "\t\t" + julianAverageBeatingPoints);
         System.out.println("==================================================================================");
     }
 
@@ -126,7 +154,7 @@ public class Game {
     }
 
     private static Board generateNewBoard() {
-        int boardSize = ((rand.nextInt(25) + 4) / 2) * 2; //minimum 4 items and ensure even amount
+        int boardSize = ((rand.nextInt(10) + 4) / 2) * 2; //minimum 4 items and ensure even amount
         int[] board = new int[boardSize];
         for (int i = 0; i < boardSize; i++) {
             board[i] = rand.nextInt(1000);

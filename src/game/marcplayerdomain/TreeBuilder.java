@@ -2,21 +2,22 @@ package game.marcplayerdomain;
 
 import game.Board;
 
-import java.util.List;
-
 /**
  * @author marc.vis
  */
 public class TreeBuilder {
 
     public static Node buildTree(Board board) {
-
         int[] rawBoard = board.getBoardRaw();
 
         Node root = new RootNode();
+
         traceBoard(root, rawBoard, 0, rawBoard.length - 1);
-        calculateValues(root, 0, 0);
-        calculateWinPercents(root);
+
+        calculateScores(root.getLeft(), 0, 0, true);
+        calculateScores(root.getRight(), 0, 0, true);
+
+        calculateOutcomes(root);
 
         return root;
     }
@@ -37,63 +38,52 @@ public class TreeBuilder {
         }
     }
 
-    private static void calculateValues(Node node, int currentValue,
-                                      int opponentCurrentValue) {
-        if (node.isLeaf()) {
-            node.setCurrentValue(currentValue);
-            node.setOpponentValue(opponentCurrentValue);
-        } else {
-            if (node.hasLeft()) {
-                calculateValues(node.getLeft(), opponentCurrentValue, currentValue + node.getValue());
-            }
-            if (node.hasRight()) {
-                calculateValues(node.getRight(), opponentCurrentValue, currentValue + node.getValue());
-            }
-        }
-    }
+    public static void calculateScores(Node node, int firstPlayerScore, int secondPlayerScore, boolean isFirstPlayer) {
+        if (node != null) {
+            int fps, sps;
 
-    private static void calculateWinPercents(Node node) {
-        Node leftChild = null;
-        Node rightChild = null;
-
-        int leftPercentToWin = 0;
-        int leftOppenentPercentToWin = 0;
-        int rightPercentToWin = 0;
-        int rightOpponentPercentToWin = 0;
-
-        if (node.isLeaf()) {
-            if (node.getParent() != null) {
-                node.setWinPercent(node.getValue() >= node.getParent().getValue() ? 100 : 0);
-                node.setOpponentWinPercent(100 - node.getWinPercent());
+            if (isFirstPlayer) {
+                fps = firstPlayerScore + node.getValue();
+                sps = secondPlayerScore;
             } else {
-                node.setWinPercent(100);
-                node.setOpponentWinPercent(0);
+                fps = firstPlayerScore;
+                sps = secondPlayerScore + node.getValue();
             }
-            return;
-        }
-        if (node.hasLeft()) {
-            leftChild = node.getLeft();
-            calculateWinPercents(leftChild);
-            leftPercentToWin = leftChild.getOpponentWinPercent();
-            leftOppenentPercentToWin = leftChild.getWinPercent();
-        }
-        if (node.hasLeft()) {
-            rightChild = node.getRight();
-            calculateWinPercents(rightChild);
-            rightPercentToWin = rightChild.getOpponentWinPercent();
-            rightOpponentPercentToWin = rightChild.getWinPercent();
-        }
 
-        if (leftChild != null && rightChild != null) {
-            node.setWinPercent( (leftPercentToWin + rightPercentToWin) / 2 );
-            node.setOpponentWinPercent( (leftOppenentPercentToWin + rightOpponentPercentToWin) / 2 );
-        } else if (leftChild != null) {
-            node.setWinPercent(leftPercentToWin);
-            node.setOpponentWinPercent(leftOppenentPercentToWin);
-        } else {
-            node.setWinPercent(rightPercentToWin);
-            node.setOpponentWinPercent(rightOpponentPercentToWin);
+            node.setFirstPlayerScore(fps);
+            node.setSecondPlayerScore(sps);
+
+            calculateScores(node.getLeft(), fps, sps, !isFirstPlayer);
         }
     }
 
+    public static void calculateOutcomes(Node node) {
+        if (node != null) {
+            if (node.isLeaf()) {
+                // Tie means no positive or negative outcomes
+                if (node.getFirstPlayerScore() > node.getSecondPlayerScore()) {
+                    node.setFirstPlayerPositiveOutcomes(1);
+                    node.setSecondPlayerNegativeOutcomes(1);
+                } else if (node.getFirstPlayerScore() < node.getSecondPlayerScore()) {
+                    node.setFirstPlayerNegativeOutcomes(1);
+                    node.setSecondPlayerPositiveOutcomes(1);
+                }
+            } else {
+                calculateOutcomes(node.getLeft());
+                calculateOutcomes(node.getRight());
+
+                Node left = node.getLeft() != null ? node.getLeft() : new Node();
+                Node right = node.getRight() != null ? node.getRight() : new Node();
+
+                node.setFirstPlayerPositiveOutcomes(left.getFirstPlayerPositiveOutcomes()
+                        + right.getFirstPlayerPositiveOutcomes());
+                node.setFirstPlayerNegativeOutcomes(left.getFirstPlayerNegativeOutcomes()
+                        + right.getFirstPlayerNegativeOutcomes());
+                node.setSecondPlayerPositiveOutcomes(left.getSecondPlayerPositiveOutcomes()
+                        + right.getSecondPlayerPositiveOutcomes());
+                node.setSecondPlayerNegativeOutcomes(left.getSecondPlayerNegativeOutcomes()
+                        + right.getSecondPlayerNegativeOutcomes());
+            }
+        }
+    }
 }

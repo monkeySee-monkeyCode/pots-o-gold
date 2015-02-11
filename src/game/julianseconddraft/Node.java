@@ -14,11 +14,10 @@ public class Node {
     public int totalWins = -1;
     public boolean isRoot = false;
 
-    public void spawnRoot(){
+    public void convertToRoot(){
         this.isRoot = true;
         this.parent = null;
         this.currentScore = 0;
-
     }
 
 
@@ -46,9 +45,7 @@ public class Node {
 
 
     public boolean isLeft() {
-        if (this.parent.left == this) {
-            return true;
-        } else return false;
+        return this.parent.left == this;
     }
 
     public boolean hasLeft() {
