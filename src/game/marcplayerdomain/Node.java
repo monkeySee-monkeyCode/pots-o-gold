@@ -11,7 +11,6 @@ public class Node {
     private int value = 0;
     private Node left;
     private Node right;
-    private Node parent;
 
     private int firstPlayerScore = 0;
     private int secondPlayerScore = 0;
@@ -59,7 +58,6 @@ public class Node {
 
     public void setLeft(Node left) {
         this.left = left;
-        left.setParent(this);
     }
 
     public Node getRight() {
@@ -68,15 +66,6 @@ public class Node {
 
     public void setRight(Node right) {
         this.right = right;
-        right.parent = this;
-    }
-
-    public Node getParent() {
-        return parent;
-    }
-
-    public void setParent(Node parent) {
-        this.parent = parent;
     }
 
     public int getFirstPlayerScore() {
