@@ -28,6 +28,9 @@ public class Game {
     static int marcAverageBeatingPoints;
     static int julianAverageBeatingPoints;
 
+    static int marcTotalWins = 0;
+    static int julianTotalWins = 0;
+
     public static void main(String[] args) {
         /*
          * Protip: we should make this n a command line argument
@@ -40,13 +43,13 @@ public class Game {
         clearResults();
         clearBoards(boards);
         playSet(boards, Brotherman.JULIAN, Brotherman.MARC);
+
+        showTotalOutcome();
     }
     
     public static void playSet(Board[] boards, Brotherman first, Brotherman second) {
 
-        for (int i = 0; i < boards.length; i++) {
-
-            Board board = boards[i];
+        for (Board board : boards) {
 
             Player firstPlayer = PlayerFactory.buildPlayer(first, board);
             Player secondPlayer = PlayerFactory.buildPlayer(second, board);
@@ -131,6 +134,9 @@ public class Game {
         if (julianWins > 0) {
             julianAverageBeatingPoints = julianTotalBeatingPoints / julianWins;
         }
+
+        marcTotalWins += marcWins;
+        julianTotalWins += julianWins;
     }
 
     public static void printResults() {
@@ -160,5 +166,10 @@ public class Game {
             board[i] = rand.nextInt(1000);
         }
         return new Board(board);
+    }
+
+    private static void showTotalOutcome() {
+        System.out.println("Marc Total Wins: " + marcTotalWins);
+        System.out.println("Julian Total Wins: " + julianTotalWins);
     }
 }

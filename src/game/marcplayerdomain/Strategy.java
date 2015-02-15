@@ -20,12 +20,8 @@ public class Strategy {
     }
 
     public LastPlayed determineMove(LastPlayed lastPlayed) {
-        switch (lastPlayed) {
-            case LEFT:
-                playedMoves.add(LastPlayed.LEFT);
-                break;
-            case RIGHT:
-                playedMoves.add(LastPlayed.RIGHT);
+        if (lastPlayed == LastPlayed.LEFT || lastPlayed == LastPlayed.RIGHT) {
+            playedMoves.add(lastPlayed);
         }
 
         boolean isFirstPlayer = isFirstPlayer();
