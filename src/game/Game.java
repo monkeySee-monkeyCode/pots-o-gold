@@ -161,7 +161,7 @@ public class Game {
     }
 
     private static Board generateNewBoard() {
-        int boardSize = ((rand.nextInt(10) + 4) / 2) * 2; //minimum 4 items and ensure even amount
+        int boardSize = ((rand.nextInt(15) + 4) / 2) * 2; //minimum 4 items and ensure even amount
         int[] board = new int[boardSize];
         for (int i = 0; i < boardSize; i++) {
             board[i] = rand.nextInt(1000);

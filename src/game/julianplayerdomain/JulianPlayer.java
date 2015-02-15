@@ -23,8 +23,13 @@ public class JulianPlayer implements Player {
      * @return value of item selected
      */
     public int move() {
+        if (board.cheatLeft() != 0 && board.peekLeft() - board.cheatLeft() > board.playRight() - board.cheatRight()) {
+            return board.playLeft();
+        } else if (board.cheatLeft() != 0){
+            return board.playRight();
+        }
 
-        if (board.peekLeft() > board.peekRight()) {
+        if (board.cheatLeft() == 0 && board.peekLeft() > board.peekRight()) {
             return board.playLeft();
         }
         return board.playRight();

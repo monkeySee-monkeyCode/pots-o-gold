@@ -60,6 +60,19 @@ public class Board {
         }
         return 0;
     }
+    public int cheatLeft() {
+        if (rightMost - leftMost > 3){
+            return board[leftMost + 1];
+    }
+        return 0;
+
+    }
+    public int cheatRight(){
+        if (rightMost - leftMost > 3){
+            return board[rightMost - 1];
+        }
+        return 0;
+    }
 
     public int[] getBoardRaw() {
         return this.board;
