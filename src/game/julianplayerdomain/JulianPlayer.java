@@ -1,18 +1,18 @@
-package game;
+package game.julianplayerdomain;
 
-/**
- * @author marc.vis
- */
+import game.Board;
+import game.Brotherman;
+import game.Player;
+
 public class JulianPlayer implements Player {
 
     private Board board;
+    private Strategery strategery;
 
     public JulianPlayer(Board board) {
-        /*
-         * You can modify this however you want, depending on how
-         * you want to track state
-         */
-        this.board = board;
+
+            this.board = board;
+            this.strategery = new Strategery();
     }
 
     /**
@@ -23,11 +23,16 @@ public class JulianPlayer implements Player {
      * @return value of item selected
      */
     public int move() {
-        /*
-         * Revise
-         */
-        return board.playLeft();
+
+        if (board.peekLeft() > board.peekRight()) {
+            return board.playLeft();
+        }
+        return board.playRight();
     }
+
+
+
+
 
     public Brotherman getPlayer() {
         return Brotherman.JULIAN;

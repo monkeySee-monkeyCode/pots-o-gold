@@ -1,7 +1,7 @@
-package game.julianseconddraft;
+package game.julianplayerdomain;
 import game.Board;
 
-import static game.julianseconddraft.Strategery.isMyMove;
+import static game.julianplayerdomain.Strategery.isMyMove;
 
 /**
  * Created by Joe on 2/1/2015.

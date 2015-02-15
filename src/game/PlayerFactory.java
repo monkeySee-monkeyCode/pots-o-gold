@@ -1,5 +1,7 @@
 package game;
 
+import game.julianplayerdomain.JulianPlayer;
+
 /**
  * @author marc.vis
  */

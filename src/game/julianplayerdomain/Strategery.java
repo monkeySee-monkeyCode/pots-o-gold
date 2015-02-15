@@ -1,4 +1,4 @@
-package game.julianseconddraft;
+package game.julianplayerdomain;
 
 /**
  * Created by Joe on 2/1/2015.

@@ -1,35 +1,46 @@
 package game.julianplayerdomain;
 
 /**
- * Created by Julian on 1/29/2015.
+ * Created by Joe on 2/1/2015.
  */
 public class Node {
-    public Node left;
-    public Node right;
-    public Node parent;
 
     public int currentScore;
-    public int totalWins = -1;
-
-    public int id;
+    public Node parent;
+    public Node left;
+    public Node right;
     public int leftPointer;
     public int rightPointer;
+    public int totalWins = -1;
+    public boolean isRoot = false;
 
-
-    public boolean isRoot(){
-        return false;
+    public void convertToRoot(){
+        this.isRoot = true;
+        this.parent = null;
+        this.currentScore = 0;
     }
 
-    public boolean isLeaf() {
-        return left == null && right == null;
+
+
+
+
+    public void spawnChild(int[] rawBoard){ //Changed this to void for you, since you don't depend on the return nor did you return anything (compilation error, uh oh!)
+        Node node = new Node();
+        node.parent = this;
+        if (node.isLeft()){  //Fixed this for you
+            node.currentScore = this.currentScore + rawBoard[this.leftPointer];
+            node.leftPointer = this.leftPointer++;
+        } else {
+            node.currentScore = this.currentScore + rawBoard[this.rightPointer];
+            node.rightPointer = this.rightPointer--;
+        }
     }
 
-    public boolean isLeft(){if (this.parent.left == this){
-        return true;
-    } else {
-        return false;
-    }}
 
+
+    public boolean isLeft() {
+        return this.parent.left == this;
+    }
 
     public boolean hasLeft() {
         return left != null;
@@ -38,56 +49,18 @@ public class Node {
     public boolean hasRight() {
         return right != null;
     }
-
-
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node left) {
-        this.left = left;
-        left.setParent(this);
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-    public void setRight(Node right) {
-        this.right = right;
-        right.parent = this;
-    }
-
-    public Node getParent() {
-        return parent;
-    }
-
-    public void setParent(Node parent) {
-        this.parent = parent;
-    }
-
-    public void setCurrentScore(int currentScore){
-        this.currentScore = currentScore;
-    }
-
-    public int getCurrentScore(){
-        return currentScore;
-
-    }
-
-    public Node spawnChild(){
-        if (this.hasLeft()){
-            Node right = new Node();
-            right.parent = this;
-            right.rightPointer = this.rightPointer - 1;
-            return right;
-        } else{
-            Node left = new Node();
-            left.parent = this;
-            left.leftPointer = this.leftPointer + 1;
-            return left;
-        }
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 

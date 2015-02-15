@@ -48,6 +48,19 @@ public class Board {
         return 0;
     }
 
+    public int peekLeft(){
+        if (leftMost <= rightMost) {
+            return board[leftMost];
+        }
+        return 0;
+    }
+    public int peekRight(){
+        if (leftMost <= rightMost) {
+            return board[rightMost];
+        }
+        return 0;
+    }
+
     public int[] getBoardRaw() {
         return this.board;
     }
