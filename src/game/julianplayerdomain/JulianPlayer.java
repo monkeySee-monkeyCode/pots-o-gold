@@ -16,11 +16,7 @@ public class JulianPlayer implements Player {
     }
 
     /**
-     * The name of the game
-     *
-     * TODO IMPLEMENT THIS METHOD TO BEAT MarcPlayer!!!
-     *
-     * @return value of item selected
+     * Deep Magic
      */
     public int move() {
         if (board.cheatLeft() != 0 && board.peekLeft() - board.cheatLeft() > board.playRight() - board.cheatRight()) {
