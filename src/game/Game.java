@@ -100,7 +100,7 @@ public class Game {
             marcTotalScore += loserScore;
             julianTotalScore += winnerScore;
             julianWins++;
-            julianAverageBeatingPoints += (winnerScore - loserScore);
+            julianTotalBeatingPoints += (winnerScore - loserScore);
         }
 
         printGameScore(winnerScore, loserScore, winner);
@@ -139,6 +139,7 @@ public class Game {
         System.out.println("BREAKDOWN");
         System.out.println("\t\t\t\tMarc\tJulian");
         System.out.println("Wins:\t\t\t" + marcWins + "\t\t" + julianWins);
+        System.out.println("Ties:\t\t\t" + tieGames);
         System.out.println("Avg Score:\t\t" + marcAverageScore + "\t" + julianAverageScore);
         System.out.println("Avg Delta:\t\t" + marcAverageBeatingPoints + "\t\t" + julianAverageBeatingPoints);
         System.out.println("==================================================================================");
